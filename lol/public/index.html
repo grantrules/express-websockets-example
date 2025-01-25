@@ -38,11 +38,12 @@
       ws.onmessage = function (e) {
         var chat = document.querySelector(".chat");
         var message = document.createElement("div");
+        debugger;
         message.textContent = e.data;
         chat.appendChild(message);
       };
 
-      document.querySelector("form").addEventListener('click', (e) => {
+      document.querySelector("form").addEventListener('submit', (e) => {
         e.preventDefault();
         const input = document.querySelector(".chat-input");
         ws.send(input.value);

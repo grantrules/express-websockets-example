@@ -22,7 +22,7 @@ wss.on('connection', (ws) => {
     ws.on('message', (message) => {
         console.log(`Received message => ${message}`);
         connections.forEach((con) => {
-            con.send(message);
+            con.send(String(message));
         })
 
     });
