@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      .chat {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px;
+        height: 200px;
+        overflow-y: scroll;
+      }
+      .chat div {
+        margin: 5px;
+        padding: 5px;
+        border: 1px solid #ccc;
+      }
+      .chat-input {
+        width: 200px;
+      }
+    </style>
+
+    <title>WebSocket example</title>
+  </head>
+  <body>
+    <div class="chat"></div>
+    <form>
+      <input type="text" class="chat-input" placeholder="Type a message..." />
+      <button class="chat-send">Send</button>
+    </form>
+
+    <script type="text/javascript">
+      var ws = new WebSocket("ws://localhost:4000/doink");
+
+      ws.onopen = function () {
+        console.log("Connected");
+      };
+
+      ws.onmessage = function (e) {
+        var chat = document.querySelector(".chat");
+        var message = document.createElement("div");
+        message.textContent = e.data;
+        chat.appendChild(message);
+      };
+
+      document.querySelector("form").addEventListener('click', (e) => {
+        e.preventDefault();
+        const input = document.querySelector(".chat-input");
+        ws.send(input.value);
+        input.value = "";
+      });;
+    </script>
+  </body>
+</html>
